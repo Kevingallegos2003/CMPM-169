@@ -20,7 +20,7 @@ class Gallery extends Phaser.Scene {
           
             frames: this.anims.generateFrameNumbers("camp", {start: 0, end: 20}),
             repeat: 0,
-            frameRate: 16,
+            frameRate: 20,
         };
         this.anims.create(animationConfig);
         //my.sprite.play("spin",true);
@@ -79,18 +79,36 @@ class Gallery extends Phaser.Scene {
             "transition": ["then", "suddenly", "meanwhile", "soon", "later", "at that very moment", "soon after", "not before long", "a few moments later"],
             "punctuation":[",", ":", "!!", ".", "?", "!?", "-", "..."],
 
-            "line1": ["[MC:#person#]The #environment# is tinted in #adjColor##punctuation# A #emotion# #MC# #transVerb#s their #food##punctuation# #transition# a #adj# #animal# #verb#s, before approaching the #MC# #adverb#."],
-            "line2": ["[MF:#fish#]A #MF# #move#s through the #environment##punctuation# The #MF# #adverb# #verb#s before it eats a #food#."],
-            "line3": ["A #person# #verb#s before the #adj# #noun#. Never before have they felt this. What are they feeling#punctuation# #emotion#? Perhaps #emotion#? Or maybe even #emotion#? #transition#, they #verb#."],
-            "line4": ["[MF:#food#]#relativeLocation# the #adjColor# #animal#, a #adj# #MF# #verb#s, waiting. Waiting for the #person# destined to meet it. #conjunction#, the #MF# is #emotion# they have yet to meet."],
+            "line1": ["[MC:#person#]The #environment# is tinted in #adjColor##punctuation#\nA #emotion# #MC# #transVerb#s their #food##punctuation# #transition# a #adj# #animal# #verb#s,\nbefore approaching the #MC# #adverb#."],
+            "line2": ["[MF:#fish#]A #MF# #move#s through the #environment##punctuation#\nThe #MF# #adverb# #verb#s before it eats a #food#."],
+            "line3": ["A #person# #verb#s before the #adj# #noun#. Never before have they felt this.\nWhat are they feeling#punctuation# #emotion#? Perhaps #emotion#? Or maybe even #emotion#?\n#transition#, they #verb#."],
+            "line4": ["[MF:#food#]#relativeLocation# the #adjColor# #animal#, a #adj# #MF# #verb#s, waiting.\nWaiting for the #person# destined to meet it. #conjunction#,\nthe #MF# is #emotion# they have yet to meet."],
 
-            "lineChoices": ["#line1", "#line2", "#line3", "#line4"], // use this!!
+            "lineChoices": ["#line1#", "#line2#", "#line3#", "#line4#"], // use this!!
             "multiLine":["#line1#\n\n#line2#\n\n#line3#\n\n#line4#"],
             "origin":["#multiLines#"]
         });
+
         // this.aStory = this.ashGrammar.flatten("#multiLine#");
         // console.log(this.aStory);
         // my.sprite.t2 = this.add.text(350, 100, this.aStory,{ font: '32px Arial', fill: '#000000' , wordWrap: {width: 1000}});
+        this.nateGrammar = tracery.createGrammar({
+            "environment":["Island", "Waters", "Caves", "Skies", "Swamps", "Ocean", "Bedroom", "Minds of", "Kingdom", "City"],
+            "adj":["Damaged", "Glazed", "Boiled", "Forgotten", "Digital", "Comically Large", "Sentient"],
+            "objects":["Birds", "E-Cigarettes", "Laundry", "Credit Cards", "Fugitives", "Fish Eggs", "Costcos", "Cashews", "Big Booms", "Hawk Tuahs"],
+            "setting":["#environment# of #adj# #objects#"],
+
+            "event":["War", "Revolution", "Renaissance", "Evolution", "Destruction", "Tragedy"],
+            "concept":["Brain Rot", "Big Stinky Dookie Doo-Doos", "E-Dating", "Depression", "Tax Evasion", "Divorce", "Dreams", "the Letter 'O'", "Alternative Medicines", "True Crime Podcasts"],
+            "reacted":["rejoiced", "locked the fuck in", "finally found careers despite what their shitty friends and family believed", "lost all of their social credit", "forgot how to read anything, like forever"],
+
+
+            "segment1":["The people of the #setting# #reacted#! The #event# of #concept# has finally ended."],
+            "segment2":["The representative from the #setting# explained, \"We found that the\ntest subjects #reacted# in response to our... \\\"#objects#\\\"\"."],
+            "segment3":["\"You're too late... the #event# of #concept# has now begun!\""],
+
+            "segments":["#segment1#", "#segment2#", "#segment3#"],
+        });
         
     }
     update(){
@@ -103,7 +121,7 @@ class Gallery extends Phaser.Scene {
                 this.poem = this.ashGrammar.flatten("#lineChoices#");
             }
             else{
-                this.poem = this.ruleGrammar.flatten("#line#");
+                this.poem = this.nateGrammar.flatten("#segments#");
             }
             this.my.Box.setVisible(false);
             this.my.sprite.t.setVisible(false);
