@@ -37,10 +37,11 @@ class Gallery extends Phaser.Scene {
             "adj":["fair", "bright", "splendid", "divine", "inseparable", "fine", "lazy", "grand", "slow", "quick", "graceful", "grave", "clear", "faint", "dreary"],
             "doThing":["come", "move", "cry", "weep", "laugh", "dream"],
             "verb":["fleck", "grace", "bless", "dapple", "touch", "caress", "smooth", "crown", "veil"],
+            "verbed":["flecked", "graced", "blessed", "dappled", "touched", "caressed", "smoothed", "crowned", "veiled", "shaded", "unleashed"],
             "ground":["glen", "river", "vale", "sea", "meadow", "forest", "glade", "grass", "sky", "waves"],
             "poeticAdj":["#substance#-#verb.ed#"],
-            "poeticDesc":["#poeticAdj#", "by #substance# #verb#'d", "#adj# with #substance#", "#verb.ed# with #substance#"],
-            "ah":["ah", "alas", "oh", "yet", "but", "and"],
+            "poeticDesc":["#poeticAdj#", "by #substance# #verb#'d", "#adj# with #substance#", "#verbed# with #substance#"],
+            "ah":["ah", "alas", "oh", "yet", "but", "and", "unless"],
             "on":["on", "in", "above", "beneath", "under", "by", "within"],
             "punctutation":[",", ":", " ", "!", ".", "?"],
             "starters":["Once upon a time","Twas the #substance#", "Twas the #adj#", "Somewhere #on# the #ground#"],
@@ -94,7 +95,16 @@ class Gallery extends Phaser.Scene {
     }
     update(){
         if (Phaser.Input.Keyboard.JustDown(this.space)) {
-            this.poem = this.ruleGrammar.flatten("#line#");
+            const randomNumber = Math.floor(Math.random() * 3);
+            if(randomNumber == 0){
+                this.poem = this.ruleGrammar.flatten("#line#");
+            }
+            else if(randomNumber == 1){
+                this.poem = this.ashGrammar.flatten("#lineChoices#");
+            }
+            else{
+                this.poem = this.ruleGrammar.flatten("#line#");
+            }
             this.my.Box.setVisible(false);
             this.my.sprite.t.setVisible(false);
             this.my.sprite.play("spin",true);
@@ -105,9 +115,6 @@ class Gallery extends Phaser.Scene {
             });
             
         }
-    }
-    Dialogue(){
-        this.poem = this.ruleGrammar.flatten("#line#");
     }
     
 }
