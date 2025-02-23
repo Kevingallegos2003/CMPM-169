@@ -4,25 +4,23 @@ class Gallery extends Phaser.Scene {
         this.my = {sprite: {}};
     }
     preload(){
-        this.load.spritesheet('Camp', 'Scenes/spritesheet.png',{
+        this.load.spritesheet('camp', 'Scenes/spritesheet.png',{
             frameWidth: 1920,
             frameHeight: 1080,
         });
     }
     create(){
         let my = this.my;
-        my.sprite = this.add.sprite(400, 300, 'Camp');
+        my.sprite = this.add.sprite(400, 300, 'camp');
         var animationConfig = {
-            key: "Camp",
+            key: "spin",
           
-            frames: [this.anims.generateFrameNumbers("Camp", { start: 0, end: 9 })],
-          
-            repeat: -1,
-            frameRate: null,
+            frames: this.anims.generateFrameNumbers("camp", {start: 0, end: 20}),
+            repeat: 0,
+            frameRate: 16,
         };
-          
         this.anims.create(animationConfig);
-        my.sprite.play("Camp",true);
+        my.sprite.play("spin",true);
         
         var ruleGrammar = tracery.createGrammar({
                 
