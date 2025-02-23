@@ -28,12 +28,11 @@ function setup() {
   let canvas = createCanvas(canvasContainer.width(), 100);
   canvas.parent("canvas-container");
   // resize canvas if the page is resized
-/*
   $(window).resize(function() {
     resizeScreen();
   });
   resizeScreen();
-  */
+
 
   //lastFrame = performance.now(); // returned in milliseconds
   //frameTime = 0;
@@ -46,8 +45,8 @@ let config = {
     render: {
         pixelArt: false  // prevent pixel art from getting blurred when scaled
     },
-    width: 1152,
-    height: 700,
+    width: 1980,
+    height: 1080,
     fps: { forceSetTimeOut: true, target: 30 },
     scene: [Gallery]
 }

@@ -12,8 +12,9 @@ class Gallery extends Phaser.Scene {
     }
     create(){
         let my = this.my;
-        my.sprite = this.add.sprite(400, 300, 'camp');
-        my.Box = this.add.sprite(400, 100, 'BOX');
+        this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        my.sprite = this.add.sprite(960, 560, 'camp');
+        my.Box = this.add.sprite(960, 150, 'BOX');
         var animationConfig = {
             key: "spin",
           
@@ -24,11 +25,11 @@ class Gallery extends Phaser.Scene {
         this.anims.create(animationConfig);
         //my.sprite.play("spin",true);
         
-        var ruleGrammar = tracery.createGrammar({
+        this.ruleGrammar = tracery.createGrammar({
                 
             "move":["flock", "race", "glide", "dance", "flee", "lie"],
             "bird":["swan", "heron", "sparrow", "swallow", "wren", "robin"],
-            "animals":["#bird#", "Turtle", "Banana Slug", "SilverFish","Panda"],
+            "animal":["#bird#", "Turtle", "Banana Slug", "SilverFish","Panda"],
             "agent":["cloud", "wave", "#bird#", "boat", "ship"],
             "transVerb":["forget", "plant", "greet", "remember", "embrace", "feel", "love"],
             "emotion":["sorrow", "gladness", "joy", "heartache", "love", "forgiveness", "grace"],
@@ -44,20 +45,34 @@ class Gallery extends Phaser.Scene {
             "punctutation":[",", ":", " ", "!", ".", "?"],
             "starters":["Once upon a time","Twas the #substance#", "Twas the #adj#", "Somewhere #on# the #ground#"],
             "noun":["#ground#", "#agent#"],
-            "proto":["#starters# #move#ing #verb#fully #on# the #ground#, a #bird# felt #emotion# for the first time in there life#punctutation# "],
-            "proto2":["#ah# the #agent#s couldn't forgive its impatientness."],
-            "line":["#proto##proto2#"],
-            "poem":["#line##punctutation##line##punctutation##line##punctutation##line#."],
-            "origin":["#[sub:#noun#]poem#"]
+            "FIRST":["#starters# #move#ing #verb#fully #on# the #ground#, a #animal# felt #emotion#\nfor the first time in there life#punctutation# "],
+            "seg1":["#ah# the #agent#s couldn't forgive its impatientness."],
+            "seg2":["If the words of the #agent# were true, then the #agent# would be\n#poeticDesc#."],
+            "seg3":["All would #doThing# at a simple realization that #substance# would be #on# reach" ],
+            "line":["#seg1#", "#seg2#", "#seg3#"],
         });
-        var poem = ruleGrammar.flatten("#line#");
-        console.log(poem);
-        my.sprite.t = this.add.text(0, 100, poem,{ font: '32px Arial', fill: '#00ff00' });
+        this.poem = this.ruleGrammar.flatten("#FIRST#");
+        console.log(this.poem);
+        my.sprite.t = this.add.text(350, 100, this.poem,{ font: '32px Arial', fill: '#000000' });
         
         
     }
     update(){
-        
+        if (Phaser.Input.Keyboard.JustDown(this.space)) {
+            this.poem = this.ruleGrammar.flatten("#line#");
+            this.my.Box.setVisible(false);
+            this.my.sprite.t.setVisible(false);
+            this.my.sprite.play("spin",true);
+            this.my.sprite.on('animationcomplete', () => {
+                this.my.sprite.t.setVisible(true);
+                this.my.Box.setVisible(true);
+                this.my.sprite.t.setText(this.poem);
+            });
+            
+        }
+    }
+    Dialogue(){
+        this.poem = this.ruleGrammar.flatten("#line#");
     }
     
 }
