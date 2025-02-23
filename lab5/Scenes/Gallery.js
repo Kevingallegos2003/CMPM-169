@@ -4,6 +4,7 @@ class Gallery extends Phaser.Scene {
         this.my = {sprite: {}};
     }
     preload(){
+        this.load.image('BOX', 'Scenes/nom.png');
         this.load.spritesheet('camp', 'Scenes/spritesheet.png',{
             frameWidth: 1920,
             frameHeight: 1080,
@@ -12,6 +13,7 @@ class Gallery extends Phaser.Scene {
     create(){
         let my = this.my;
         my.sprite = this.add.sprite(400, 300, 'camp');
+        my.Box = this.add.sprite(400, 100, 'BOX');
         var animationConfig = {
             key: "spin",
           
@@ -20,7 +22,7 @@ class Gallery extends Phaser.Scene {
             frameRate: 16,
         };
         this.anims.create(animationConfig);
-        my.sprite.play("spin",true);
+        //my.sprite.play("spin",true);
         
         var ruleGrammar = tracery.createGrammar({
                 
@@ -50,7 +52,7 @@ class Gallery extends Phaser.Scene {
         });
         var poem = ruleGrammar.flatten("#line#");
         console.log(poem);
-        my.sprite.t = this.add.text(0, 0, poem);
+        my.sprite.t = this.add.text(0, 100, poem,{ font: '32px Arial', fill: '#00ff00' });
         
         
     }
