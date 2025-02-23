@@ -55,6 +55,41 @@ class Gallery extends Phaser.Scene {
         console.log(this.poem);
         my.sprite.t = this.add.text(350, 100, this.poem,{ font: '32px Arial', fill: '#000000' });
         
+
+        this.ashGrammar = tracery.createGrammar({
+            
+            "person": ["pirate", "blacksmith", "soldier", "child", "doctor", "person", "robot", "animatronic", "sailor", "student", "mermaid", "ghost", "king", "grandmother"],
+            "fish": ["gar", "pike", "eel", "salmon", "trout", "bass", "catfish", "halibut", "mackerel", "sturgeon"],
+            "animal": ["#fish#", "squirrel", "monkey", "hamster", "dog", "cat", "shrimp", "bird"],
+            "environment": ["cloud", "storm", "forest", "stream", "mountain", "hill", "ocean"],
+            "food": ["banana", "apple", "mango", "lasagna", "croissant", "raw egg", "broccoli", "cake", "donut", "steak", "eggroll", "soup", "pasta", "porridge", "oatmeal", "moldy bread", "pet food"],
+            "noun": ["#person#", "#animal#", "#environment#", "#food#"],
+            "color": ["blue", "purple", "green", "rose", "periwinkle", "red", "orange", "yellow", "piss yellow", "poop brown", "vomit green", "white", "black", "gray"],
+            "adjColor": ["#adj# #color#", "glowing #color#", "translucent #color#"],
+            "verb": ["stand", "weep", "quake", "think", "ponder", "reminisce", "plead", "accept", "stare"],
+            "transVerb":["throw", "pour", "spill", "eat", "roll", "scold", "throws up"],
+            "move": ["run", "walk", "jog", "skip", "soar", "slide", "glide"],
+            "adj": ["awe-inspiring", "pitiful", "disappointing", "beautiful", "melancholic", "ethereal", "deep", "piercing", "rumbling", "sharp", "gross"],
+            "adverb": ["wearily", "joyfully", "gleefully", "earnestly", "gloomily"],
+            "conjunction": ["but", "though", "nevertheless", "and", "yet"],
+            "relativeLocation": ["next to", "besides", "residing inside", "above", "far above", "far below", "near"],
+            "determiner": ["a few", "some", "a couple", "several"],
+            "emotion": ["melancholic", "desperate", "lonely", "fearful", "anxious", "hopeful", "relieved", "cautious", "ecstatic", "joyous", "curious", "wary", "depressed", "empty", "confused", "enraged", "scornful"],
+            "transition": ["then", "suddenly", "meanwhile", "soon", "later", "at that very moment", "soon after", "not before long", "a few moments later"],
+            "punctuation":[",", ":", "!!", ".", "?", "!?", "-", "..."],
+
+            "line1": ["[MC:#person#]The #environment# is tinted in #adjColor##punctuation# A #emotion# #MC# #transVerb#s their #food##punctuation# #transition# a #adj# #animal# #verb#s, before approaching the #MC# #adverb#."],
+            "line2": ["[MF:#fish#]A #MF# #move#s through the #environment##punctuation# The #MF# #adverb# #verb#s before it eats a #food#."],
+            "line3": ["A #person# #verb#s before the #adj# #noun#. Never before have they felt this. What are they feeling#punctuation# #emotion#? Perhaps #emotion#? Or maybe even #emotion#? #transition#, they #verb#."],
+            "line4": ["[MF:#food#]#relativeLocation# the #adjColor# #animal#, a #adj# #MF# #verb#s, waiting. Waiting for the #person# destined to meet it. #conjunction#, the #MF# is #emotion# they have yet to meet."],
+
+            "lineChoices": ["#line1", "#line2", "#line3", "#line4"], // use this!!
+            "multiLine":["#line1#\n\n#line2#\n\n#line3#\n\n#line4#"],
+            "origin":["#multiLines#"]
+        });
+        // this.aStory = this.ashGrammar.flatten("#multiLine#");
+        // console.log(this.aStory);
+        // my.sprite.t2 = this.add.text(350, 100, this.aStory,{ font: '32px Arial', fill: '#000000' , wordWrap: {width: 1000}});
         
     }
     update(){
